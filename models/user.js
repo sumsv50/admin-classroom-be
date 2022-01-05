@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             unique: true,
         },
+        name: {
+          allowNull: false,
+          type: DataTypes.STRING
+        },
+        isBanned: DataTypes.BOOLEAN
     }, {
         sequelize,
         modelName: 'Users',

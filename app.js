@@ -60,10 +60,10 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   console.log(err);
   // render the error page
-  res.status(err.status || 500);
+  res.status(err.status || 400);
   res.json({
     isSuccess: false,
-    message: 'Bad request'
+    message: err.message
   });
 });
 
