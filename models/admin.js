@@ -14,7 +14,11 @@ module.exports = (sequelize, DataTypes) => {
         email: DataTypes.STRING,
         password: DataTypes.STRING,
         avatar: DataTypes.STRING,
-        isBanned: DataTypes.BOOLEAN
+        isBanned: DataTypes.BOOLEAN,
+        name: {
+          allowNull: false,
+          type: DataTypes.STRING
+        }
     }, {
         sequelize,
         modelName: 'Admins',

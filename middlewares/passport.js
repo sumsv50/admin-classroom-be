@@ -28,7 +28,7 @@ passport.use(new LocalStrategy(
     try {
       const admin = await authService.checkCredential(email, password);
       if (admin) {
-        return done(null, { id: admin.id });
+        return done(null, { id: admin.id, email: admin.email, name: admin.name });
       }
       return done(new Error('Incorrect email or password'), false);
 

@@ -42,6 +42,7 @@ class AuthController {
     res.json({
       authorization: token,
       isSuccess: true,
+      admin: req.user,
       message: "Sign in successfully"
     });
   }
