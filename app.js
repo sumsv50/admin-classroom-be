@@ -44,8 +44,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
 app.use(authenticate);
-app.use('/classes', classesRouter);
-app.use('/userclass', userClassRouter);
+app.use('/api/classes', classesRouter);
+app.use('/api/userclass', userClassRouter);
 app.use('/api', authRouter);
 
 // catch 404 and forward to error handler
