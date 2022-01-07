@@ -1,6 +1,6 @@
 const userClassService = require('./userClassService');
 
-class classesController {
+class usersController {
     async showUserClassList(req, res) {
         const classId = req.params.id;
         try {
@@ -12,4 +12,4 @@ class classesController {
 
 }
 
-module.exports = new classesController();
+module.exports = new usersController();

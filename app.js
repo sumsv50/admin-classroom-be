@@ -8,6 +8,7 @@ const cors = require('cors');
 const passport = require('passport');
 const classesRouter = require('./components/classes');
 const userClassRouter = require('./components/userclass');
+const usersRouter = require('./components/users');
 const authRouter = require('./components/auth');
 const authenticate = require('./middlewares/authentication');
 const app = express();
@@ -46,6 +47,7 @@ app.use(passport.initialize());
 app.use(authenticate);
 app.use('/api/classes', classesRouter);
 app.use('/api/userclass', userClassRouter);
+app.use('/api/users', usersRouter);
 app.use('/api', authRouter);
 
 // catch 404 and forward to error handler
