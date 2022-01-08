@@ -21,9 +21,7 @@ app.set('view engine', 'hbs');
 
 var whitelist = [
   'http://localhost:3001',
-  'https://follmeclassroom.herokuapp.com',
-  'https://follclassroom.herokuapp.com',
-  'https://followclassroom-fe.vercel.app'
+  'https://admin-classroom.vercel.app'
 ];
 
 const corsOptions = {
