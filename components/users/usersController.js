@@ -14,6 +14,23 @@ class usersController {
       next(err);
     }
   }
+
+  async updateUserInfo(req, res, next) {
+    try {
+      const userId = req.params.userId;
+      const user = await usersService.getUserById(userId);
+      if(!user) {
+        return next(Error('User not found!'));
+      }
+      await usersService.updateUser(userId, req.body);
+      
+      res.json({
+        isSuccess: true
+      })
+    } catch(err) {
+      return next(err);
+    }
+  }
 }
 
 module.exports = new usersController();
