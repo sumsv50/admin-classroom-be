@@ -1,4 +1,5 @@
 const classesService = require('./classesService');
+const ClassRole = require('../../enums/class_role.enum');
 
 function makeid(length) {
   var result = '';
@@ -23,11 +24,31 @@ class classesController {
     }
   }
 
-  async showClassById(req, res) {
+  async getClassDetail(req, res, next) {
     try {
-      res.json(await classesService.findClassbyId(req.params.id));
+      const { id: classId } = req.params;
+      //GetClass;
+      const room = await classesService.findClassById(classId);
+
+      if (!room) {
+        return next(Error("Class not found!"));
+      }
+
+      const teachers = await classesService.getUserClassByRole(classId, ClassRole.TEACHER);
+      const students = await classesService.getUserClassByRole(classId, ClassRole.STUDENT);
+
+      res.json({
+        isSuccess: true,
+        data: {
+          className: room.name,
+          description: room.description,
+          teachers,
+          students
+        }
+      });
+
     } catch (err) {
-      console.error(err);
+      return next(err);
     }
   }
 
@@ -56,7 +77,8 @@ class classesController {
         {
           isSuccess: true,
           message: "Create class successfully!"
-        })
+        }
+      )
 
     } catch (err) {
       console.error(err);

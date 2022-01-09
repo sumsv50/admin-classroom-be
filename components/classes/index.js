@@ -5,7 +5,7 @@ const classesController = require('./classesController');
 /* GET classes listing. */
 router.get('/', classesController.getAllClasses);
 
-router.get('/:id', classesController.showClassById);
+router.get('/:id', classesController.getClassDetail);
 
 router.post('/', classesController.createNewClass);
 
