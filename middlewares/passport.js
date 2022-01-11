@@ -5,6 +5,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 const authService = require('../components/auth/authService');
 const { JWT_SECRET } = require('../config/authentication');
+const AppError = require('../util/AppError');
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken("Authorization");
@@ -12,9 +13,14 @@ opts.secretOrKey = JWT_SECRET;
 
 passport.use(new JwtStrategy(opts, async function (jwt_payload, done) {
   try {
-    const user = await authService.findById(jwt_payload.sub);
-    if (user) return done(null, { id: user.id });
-    done(null, false);
+    const admin = await authService.findById(jwt_payload.sub);
+    if (admin) {
+      if (admin.isBanned) {
+        return done(AppError('Your account is banned!', 401), false);
+      }
+      return done(null, { id: admin.id });
+    }
+    done(AppError('UnAuthentication!', 401), false);
   } catch (err) {
     done(err, false);
   }
@@ -28,9 +34,12 @@ passport.use(new LocalStrategy(
     try {
       const admin = await authService.checkCredential(email, password);
       if (admin) {
+        if (admin.isBanned) {
+          return done(new Error('Your account is banned!'), false);
+        }
         return done(null, { id: admin.id, email: admin.email, name: admin.name });
       }
-      return done(new Error('Incorrect email or password'), false);
+      return done(new Error('Incorrect email or password!'), false);
 
     } catch (err) {
       console.log(err);
