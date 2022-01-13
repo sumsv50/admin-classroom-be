@@ -5,7 +5,9 @@ const usersController = require('./adminsController');
 /* GET users listing. */
 router.get('/', usersController.getAllAdmins);
 
-router.get('/:userId', usersController.getUserInfo);
+router.post('/', usersController.createAdmin);
+
+router.get('/:adminId', usersController.getAdminInfo);
 
 router.patch('/:adminId', usersController.updateAdminInfo);
 

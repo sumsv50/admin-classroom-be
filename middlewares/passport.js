@@ -37,7 +37,7 @@ passport.use(new LocalStrategy(
         if (admin.isBanned) {
           return done(new Error('Your account is banned!'), false);
         }
-        return done(null, { id: admin.id, email: admin.email, name: admin.name });
+        return done(null, { id: admin.id, email: admin.email, name: admin.name, avatar: admin.avatar });
       }
       return done(new Error('Incorrect email or password!'), false);
 
